@@ -42,14 +42,14 @@ type ProtobufField struct {
 }
 
 const (
-	functionParametersName  = "%s_FunctionParameters"
+	functionParametersName  = "%s_Parameters"
 	functionReturnValueName = "EncodedFunctionCall"
 	template                = `
 syntax = "proto3";
 
 package solidity;
 
-option go_package = "gen/solidity_contracts";
+option go_package = "go/gen/solidity_contracts";
 
 import "solidity_types.proto";
 
@@ -110,9 +110,9 @@ func getRPCDefinitions(services []ProtobufService) string {
 func getMessageDefinitions(services []ProtobufService) string {
 	s := ""
 	for i, service := range services {
-		s = s + service.InputParameterMessageDefinition() + "\n\n"
+		s = s + service.InputParameterMessageDefinition()
 		if i < len(services)-1 {
-			s = s + "\n"
+			s = s + "\n\n"
 		}
 	}
 
@@ -124,7 +124,7 @@ func (ps ProtobufService) RPCDefinition() string {
 }
 
 func (ps ProtobufService) InputParameterMessageDefinition() string {
-	template := `message %s { 
+	template := `message %s {
 %s
 }`
 

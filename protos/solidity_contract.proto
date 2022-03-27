@@ -3,24 +3,21 @@ syntax = "proto3";
 
 package solidity;
 
-option go_package = "gen/solidity_contracts";
+option go_package = "go/gen/solidity_contracts";
 
 import "solidity_types.proto";
 
 service ContractService {
-	rpc retrieve (retrieve_FunctionParameters) returns (EncodedFunctionCall);
-	rpc store (store_FunctionParameters) returns (EncodedFunctionCall);
+	rpc retrieve (retrieve_Parameters) returns (EncodedFunctionCall);
+	rpc store (store_Parameters) returns (EncodedFunctionCall);
 }
 
-message retrieve_FunctionParameters { 
+message retrieve_Parameters {
 
 }
 
-
-message store_FunctionParameters { 
+message store_Parameters {
 	Uint num = 1;
 	repeated Uint stuff = 2;
 	Address f = 3;
 }
-
-

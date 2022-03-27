@@ -1,7 +1,7 @@
 syntax = "proto3";
 package solidity;
 
-option go_package = "gen/solidity";
+option go_package = "go/gen/solidity";
 
 enum UintType {
 	UINT8 = 0;
@@ -91,14 +91,22 @@ message Bool {
 	bool boolean = 1;
 }
 
+// Not supported yet by solidity
 message Fixed {
 	fixed32 m = 1;
 	fixed32 n = 2;
+	// int_bytes is expected to be the value as a m-bit two's complement
+	// big endian number.
+	bytes int_bytes = 3;
 }
 
+// Not supported yet by solidity
 message Ufixed {
 	fixed32 m = 1;
 	fixed32 n = 2;
+	// int_bytes is expected to be the value as a m-bit two's complement
+	// big endian number.
+	bytes int_bytes = 3;
 }
 
 message Bytes {
