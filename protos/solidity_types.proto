@@ -1,0 +1,115 @@
+syntax = "proto3";
+package solidity;
+
+option go_package = "gen/solidity";
+
+enum UintType {
+	UINT8 = 0;
+	UINT16 = 1;
+	UINT24 = 2;
+	UINT32 = 3;
+	UINT40 = 4;
+	UINT48 = 5;
+	UINT56 = 6;
+	UINT64 = 7;
+	UINT72 = 8;
+	UINT80 = 9;
+	UINT88 = 10;
+	UINT96 = 11;
+	UINT104 = 12;
+	UINT112 = 13;
+	UINT120 = 14;
+	UINT128 = 15;
+	UINT136 = 16;
+	UINT144 = 17;
+	UINT152 = 18;
+	UINT160 = 19;
+	UINT168 = 20;
+	UINT176 = 21;
+	UINT184 = 22;
+	UINT192 = 23;
+	UINT200 = 24;
+	UINT208 = 25;
+	UINT216 = 26;
+	UINT224 = 27;
+	UINT232 = 28;
+	UINT240 = 29;
+	UINT248 = 30;
+	UINT256 = 31;
+}
+
+enum IntType {
+	INT8 = 0;
+	INT16 = 1;
+	INT24 = 2;
+	INT32 = 3;
+	INT40 = 4;
+	INT48 = 5;
+	INT56 = 6;
+	INT64 = 7;
+	INT72 = 8;
+	INT80 = 9;
+	INT88 = 10;
+	INT96 = 11;
+	INT104 = 12;
+	INT112 = 13;
+	INT120 = 14;
+	INT128 = 15;
+	INT136 = 16;
+	INT144 = 17;
+	INT152 = 18;
+	INT160 = 19;
+	INT168 = 20;
+	INT176 = 21;
+	INT184 = 22;
+	INT192 = 23;
+	INT200 = 24;
+	INT208 = 25;
+	INT216 = 26;
+	INT224 = 27;
+	INT232 = 28;
+	INT240 = 29;
+	INT248 = 30;
+	INT256 = 31;
+}
+
+message Uint {
+	UintType type = 1;
+	bytes uint_bytes = 2;
+}
+
+message Int {
+	IntType type = 1;
+	bytes int_bytes = 2;
+}
+
+message Address {
+	bytes address = 1;
+}
+
+message Bool {
+	bool boolean = 1;
+}
+
+message Fixed {
+	fixed32 m = 1;
+	fixed32 n = 2;
+}
+
+message Ufixed {
+	fixed32 m = 1;
+	fixed32 n = 2;
+}
+
+message Bytes {
+	bytes bytes = 1;
+}
+
+message Function {
+	Address address = 1;
+	bytes function_selector = 2;
+}
+
+message EncodedFunctionCall {
+	bytes data = 1;
+}
