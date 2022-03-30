@@ -36,22 +36,35 @@ type ProtobufMessage struct {
 }
 
 type ProtobufField struct {
-	IsArray   bool
+	// a nil value for ArrayInfo indicates the field
+	// is not an array
+	ArrayInfo *ArrayInfo
 	TypeName  string
 	FieldName string
 }
 
+type ArrayInfo struct {
+	// a valued of < 0 indicates that it is a
+	// dynamic array
+	SolidityArray string
+}
+
 const (
-	functionParametersName  = "%s_FunctionParameters"
+	functionParametersName  = "%s_Parameters"
 	functionReturnValueName = "EncodedFunctionCall"
-	template                = `
+	protoTemplate           = `
 syntax = "proto3";
 
 package solidity;
 
-option go_package = "gen/solidity_contracts";
+option go_package = "go/gen/solidity_contracts";
 
 import "solidity_types.proto";
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.FieldOptions {
+  optional string array = 50001;
+}
 
 service ContractService {
 %s
@@ -76,13 +89,20 @@ func GenerateSolidityContractProtoFileFromABIFile(abi ABI) (string, error) {
 			}
 
 			for _, parameter := range fd.Inputs {
-				protoFieldType, isArray, err := SolidityTypeToProtoType(parameter.ParameterType)
+				protoFieldType, err := solidityTypeToProtoType(parameter.ParameterType)
 				if err != nil {
 					return "", err
 				}
 
+				var arrayInfo *ArrayInfo
+				if isArray(parameter.ParameterType) {
+					arrayInfo = &ArrayInfo{
+						SolidityArray: parameter.ParameterType,
+					}
+				}
+
 				service.InputParameter.Fields = append(service.InputParameter.Fields, ProtobufField{
-					IsArray:   isArray,
+					ArrayInfo: arrayInfo,
 					TypeName:  protoFieldType,
 					FieldName: parameter.ParameterName,
 				})
@@ -92,7 +112,7 @@ func GenerateSolidityContractProtoFileFromABIFile(abi ABI) (string, error) {
 		}
 	}
 
-	return fmt.Sprintf(template, getRPCDefinitions(services), getMessageDefinitions(services)), nil
+	return fmt.Sprintf(protoTemplate, getRPCDefinitions(services), getMessageDefinitions(services)), nil
 }
 
 func getRPCDefinitions(services []ProtobufService) string {
@@ -110,9 +130,9 @@ func getRPCDefinitions(services []ProtobufService) string {
 func getMessageDefinitions(services []ProtobufService) string {
 	s := ""
 	for i, service := range services {
-		s = s + service.InputParameterMessageDefinition() + "\n\n"
+		s = s + service.InputParameterMessageDefinition()
 		if i < len(services)-1 {
-			s = s + "\n"
+			s = s + "\n\n"
 		}
 	}
 
@@ -124,7 +144,7 @@ func (ps ProtobufService) RPCDefinition() string {
 }
 
 func (ps ProtobufService) InputParameterMessageDefinition() string {
-	template := `message %s { 
+	template := `message %s {
 %s
 }`
 
@@ -140,9 +160,11 @@ func (ps ProtobufService) InputParameterMessageDefinition() string {
 }
 
 func (pf ProtobufField) Definition(protoFieldIndex int) string {
-	template := "%s %s = %d;"
-	if pf.IsArray {
-		template = "repeated " + template
+	template := "%s %s = %d"
+	if pf.ArrayInfo != nil {
+		template = fmt.Sprintf("repeated %v [(array) = \"%s\"]", template, pf.ArrayInfo.SolidityArray)
 	}
+	template = template + ";"
+
 	return fmt.Sprintf(template, pf.TypeName, pf.FieldName, protoFieldIndex)
 }

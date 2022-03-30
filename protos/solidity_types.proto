@@ -1,7 +1,7 @@
 syntax = "proto3";
 package solidity;
 
-option go_package = "gen/solidity";
+option go_package = "go/gen/solidity";
 
 enum UintType {
 	UINT8 = 0;
@@ -73,14 +73,233 @@ enum IntType {
 	INT256 = 31;
 }
 
-message Uint {
-	UintType type = 1;
-	bytes uint_bytes = 2;
+enum BytesType {
+	BYTES1 = 0;
+	BYTES2 = 2;
+	BYTES3 = 3;
+	BYTES4 = 4;
+	BYTES5 = 5;
+	BYTES6 = 6;
+	BYTES7 = 7;
+	BYTES8 = 8;
+	BYTES9 = 9;
+	BYTES10 = 10;
+	BYTES11 = 11;
+	BYTES12 = 12;
+	BYTES13 = 13;
+	BYTES14 = 14;
+	BYTES15 = 15;
+	BYTES16 = 16;
+	BYTES17 = 17;
+	BYTES18 = 18;
+	BYTES19 = 19;
+	BYTES20 = 20;
+	BYTES21 = 21;
+	BYTES22 = 22;
+	BYTES23 = 23;
+	BYTES24 = 24;
+	BYTES25 = 25;
+	BYTES26 = 26;
+	BYTES27 = 27;
+	BYTES28 = 28;
+	BYTES29 = 29;
+	BYTES30 = 30;
+	BYTES31 = 31;
+	BYTES32 = 32;
 }
 
-message Int {
-	IntType type = 1;
-	bytes int_bytes = 2;
+message Uint8 {
+	fixed64 uint = 1;
+}
+message Uint16 {
+	fixed64 uint = 2;
+}
+message Uint24 {
+	fixed64 uint = 3;
+}
+message Uint32 {
+	fixed64 uint = 4;
+}
+message Uint40 {
+	fixed64 uint = 5;
+}
+message Uint48 {
+	fixed64 uint = 6;
+}
+message Uint56 {
+	fixed64 uint = 7;
+}
+message Uint64 {
+	fixed64 uint = 8;
+}
+message Uint72 {
+	bytes uint_bytes = 9;
+}
+message Uint80 {
+	bytes uint_bytes = 10;
+}
+message Uint88 {
+	bytes uint_bytes = 11;
+}
+message Uint96 {
+	bytes uint_bytes = 12;
+}
+message Uint104 {
+	bytes uint_bytes = 13;
+}
+message Uint112 {
+	bytes uint_bytes = 14;
+}
+message Uint120 {
+	bytes uint_bytes = 15;
+}
+message Uint128 {
+	bytes uint_bytes = 16;
+}
+message Uint136 {
+	bytes uint_bytes = 17;
+}
+message Uint144 {
+	bytes uint_bytes = 18;
+}
+message Uint152 {
+	bytes uint_bytes = 19;
+}
+message Uint160 {
+	bytes uint_bytes = 20;
+}
+message Uint168 {
+	bytes uint_bytes = 21;
+}
+message Uint176 {
+	bytes uint_bytes = 22;
+}
+message Uint184 {
+	bytes uint_bytes = 23;
+}
+message Uint192 {
+	bytes uint_bytes = 24;
+}
+message Uint200 {
+	bytes uint_bytes = 25;
+}
+message Uint208 {
+	bytes uint_bytes = 26;
+}
+message Uint216 {
+	bytes uint_bytes = 27;
+}
+message Uint224 {
+	bytes uint_bytes = 28;
+}
+message Uint232 {
+	bytes uint_bytes = 29;
+}
+message Uint240 {
+	bytes uint_bytes = 30;
+}
+message Uint248 {
+	bytes uint_bytes = 31;
+}
+message Uint256 {
+	bytes uint_bytes = 32;
+}
+
+message Int8 {
+	sint64 int = 1;
+}
+message Int16 {
+	sint64 int = 2;
+}
+message Int24 {
+	sint64 int = 3;
+}
+message Int32 {
+	sint64 int = 4;
+}
+message Int40 {
+	sint64 int = 5;
+}
+message Int48 {
+	sint64 int = 6;
+}
+message Int56 {
+	sint64 int = 7;
+}
+message Int64 {
+	sint64 int = 8;
+}
+message Int72 {
+	bytes int_bytes = 9;
+}
+message Int80 {
+	bytes int_bytes = 10;
+}
+message Int88 {
+	bytes int_bytes = 11;
+}
+message Int96 {
+	bytes int_bytes = 12;
+}
+message Int104 {
+	bytes int_bytes = 13;
+}
+message Int112 {
+	bytes int_bytes = 14;
+}
+message Int120 {
+	bytes int_bytes = 15;
+}
+message Int128 {
+	bytes int_bytes = 16;
+}
+message Int136 {
+	bytes int_bytes = 17;
+}
+message Int144 {
+	bytes int_bytes = 18;
+}
+message Int152 {
+	bytes int_bytes = 19;
+}
+message Int160 {
+	bytes int_bytes = 20;
+}
+message Int168 {
+	bytes int_bytes = 21;
+}
+message Int176 {
+	bytes int_bytes = 22;
+}
+message Int184 {
+	bytes int_bytes = 23;
+}
+message Int192 {
+	bytes int_bytes = 24;
+}
+message Int200 {
+	bytes int_bytes = 25;
+}
+message Int208 {
+	bytes int_bytes = 26;
+}
+message Int216 {
+	bytes int_bytes = 27;
+}
+message Int224 {
+	bytes int_bytes = 28;
+}
+message Int232 {
+	bytes int_bytes = 29;
+}
+message Int240 {
+	bytes int_bytes = 30;
+}
+message Int248 {
+	bytes int_bytes = 31;
+}
+message Int256 {
+	bytes int_bytes = 32;
 }
 
 message Address {
@@ -91,18 +310,127 @@ message Bool {
 	bool boolean = 1;
 }
 
+// Not supported yet by solidity
 message Fixed {
 	fixed32 m = 1;
 	fixed32 n = 2;
+	// int_bytes is expected to be the value as a m-bit two's complement
+	// big endian number.
+	bytes int_bytes = 3;
 }
 
+// Not supported yet by solidity
 message Ufixed {
 	fixed32 m = 1;
 	fixed32 n = 2;
+	// int_bytes is expected to be the value as a m-bit two's complement
+	// big endian number.
+	bytes int_bytes = 3;
+}
+
+message Bytes1 {
+	bytes bytes = 1;
+}
+message Bytes2 {
+	bytes bytes = 2;
+}
+message Bytes3 {
+	bytes bytes = 3;
+}
+message Bytes4 {
+	bytes bytes = 4;
+}
+message Bytes5 {
+	bytes bytes = 5;
+}
+message Bytes6 {
+	bytes bytes = 6;
+}
+message Bytes7 {
+	bytes bytes = 7;
+}
+message Bytes8 {
+	bytes bytes = 8;
+}
+message Bytes9 {
+	bytes bytes = 9;
+}
+message Bytes10 {
+	bytes bytes = 10;
+}
+message Bytes11 {
+	bytes bytes = 11;
+}
+message Bytes12 {
+	bytes bytes = 12;
+}
+message Bytes13 {
+	bytes bytes = 13;
+}
+message Bytes14 {
+	bytes bytes = 14;
+}
+message Bytes15 {
+	bytes bytes = 15;
+}
+message Bytes16 {
+	bytes bytes = 16;
+}
+message Bytes17 {
+	bytes bytes = 17;
+}
+message Bytes18 {
+	bytes bytes = 18;
+}
+message Bytes19 {
+	bytes bytes = 19;
+}
+message Bytes20 {
+	bytes bytes = 20;
+}
+message Bytes21 {
+	bytes bytes = 21;
+}
+message Bytes22 {
+	bytes bytes = 22;
+}
+message Bytes23 {
+	bytes bytes = 23;
+}
+message Bytes24 {
+	bytes bytes = 24;
+}
+message Bytes25 {
+	bytes bytes = 25;
+}
+message Bytes26 {
+	bytes bytes = 26;
+}
+message Bytes27 {
+	bytes bytes = 27;
+}
+message Bytes28 {
+	bytes bytes = 28;
+}
+message Bytes29 {
+	bytes bytes = 29;
+}
+message Bytes30 {
+	bytes bytes = 30;
+}
+message Bytes31 {
+	bytes bytes = 31;
+}
+message Bytes32 {
+	bytes bytes = 32;
 }
 
 message Bytes {
 	bytes bytes = 1;
+}
+
+message String {
+	string string = 1;
 }
 
 message Function {
@@ -112,4 +440,131 @@ message Function {
 
 message EncodedFunctionCall {
 	bytes data = 1;
+}
+
+message TypeStaticArray {
+	int32 size = 1;
+	repeated Type type_list = 2;
+}
+
+message TypeDynamicArray {
+	repeated Type type_list = 1;
+}
+
+message Tuple {
+	repeated Type tuple_list = 1;
+}
+
+message Type {
+	oneof solidityType {
+		Uint8 uint8 = 1;
+		Uint16 uint16 = 2;
+		Uint24 uint24 = 3;
+		Uint32 uint32 = 4;
+		Uint40 uint40 = 5;
+		Uint48 uint48 = 6;
+		Uint56 uint56 = 7;
+		Uint64 uint64 = 8;
+		Uint72 uint72 = 9;
+		Uint80 uint80 = 10;
+		Uint88 uint88 = 11;
+		Uint96 uint96 = 12;
+		Uint104 uint104 = 13;
+		Uint112 uint112 = 14;
+		Uint120 uint120 = 15;
+		Uint128 uint128 = 16;
+		Uint136 uint136 = 17;
+		Uint144 uint144 = 18;
+		Uint152 uint152 = 19;
+		Uint160 uint160 = 20;
+		Uint168 uint168 = 21;
+		Uint176 uint176 = 22;
+		Uint184 uint184 = 23;
+		Uint192 uint192 = 24;
+		Uint200 uint200 = 25;
+		Uint208 uint208 = 26;
+		Uint216 uint216 = 27;
+		Uint224 uint224 = 28;
+		Uint232 uint232 = 29;
+		Uint240 uint240 = 30;
+		Uint248 uint248 = 31;
+		Uint256 uint256 = 32;
+
+		Int8 int8 = 33;
+		Int16 int16 = 34;
+		Int24 int24 = 35;
+		Int32 int32 = 36;
+		Int40 int40 = 37;
+		Int48 int48 = 38;
+		Int56 int56 = 39;
+		Int64 int64 = 40;
+		Int72 int72 = 41;
+		Int80 int80 = 42;
+		Int88 int88 = 43;
+		Int96 int96 = 44;
+		Int104 int104 = 45;
+		Int112 int112 = 46;
+		Int120 int120 = 47;
+		Int128 int128 = 48;
+		Int136 int136 = 49;
+		Int144 int144 = 50;
+		Int152 int152 = 51;
+		Int160 int160 = 52;
+		Int168 int168 = 53;
+		Int176 int176 = 54;
+		Int184 int184 = 55;
+		Int192 int192 = 56;
+		Int200 int200 = 57;
+		Int208 int208 = 58;
+		Int216 int216 = 59;
+		Int224 int224 = 60;
+		Int232 int232 = 61;
+		Int240 int240 = 62;
+		Int248 int248 = 63;
+		Int256 int256 = 64;
+
+		Bytes1 bytes1 = 65;
+		Bytes2 bytes2 = 66;
+		Bytes3 bytes3 = 67;
+		Bytes4 bytes4 = 68;
+		Bytes5 bytes5 = 69;
+		Bytes6 bytes6 = 70;
+		Bytes7 bytes7 = 71;
+		Bytes8 bytes8 = 72;
+		Bytes9 bytes9 = 73;
+		Bytes10 bytes10 = 74;
+		Bytes11 bytes11 = 75;
+		Bytes12 bytes12 = 76;
+		Bytes13 bytes13 = 77;
+		Bytes14 bytes14 = 78;
+		Bytes15 bytes15 = 79;
+		Bytes16 bytes16 = 80;
+		Bytes17 bytes17 = 81;
+		Bytes18 bytes18 = 82;
+		Bytes19 bytes19 = 83;
+		Bytes20 bytes20 = 84;
+		Bytes21 bytes21 = 85;
+		Bytes22 bytes22 = 86;
+		Bytes23 bytes23 = 87;
+		Bytes24 bytes24 = 88;
+		Bytes25 bytes25 = 89;
+		Bytes26 bytes26 = 90;
+		Bytes27 bytes27 = 91;
+		Bytes28 bytes28 = 92;
+		Bytes29 bytes29 = 93;
+		Bytes30 bytes30 = 94;
+		Bytes31 bytes31 = 95;
+		Bytes32 bytes32 = 96;
+
+		Bytes bytes = 97;
+		String string = 98;
+
+		Address address = 99;
+		Bool bool = 100;
+		Function function = 101;
+
+		TypeStaticArray static_array = 102;
+		TypeDynamicArray dynamic_array = 103;
+		Tuple tuple = 104;
+	}
 }
