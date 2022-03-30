@@ -6,6 +6,11 @@ package solidity;
 option go_package = "go/gen/solidity_contracts";
 
 import "solidity_types.proto";
+import "google/protobuf/descriptor.proto";
+
+extend google.protobuf.FieldOptions {
+  optional string array = 50001;
+}
 
 service ContractService {
 	rpc retrieve (retrieve_Parameters) returns (EncodedFunctionCall);
@@ -17,7 +22,7 @@ message retrieve_Parameters {
 }
 
 message store_Parameters {
-	Uint num = 1;
-	repeated Uint stuff = 2;
+	Uint256 num = 1;
+	repeated Uint8 stuff = 2 [(array) = "uint8[15]"];
 	Address f = 3;
 }
